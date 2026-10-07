@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: gemma-chatbot
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.3
+      - key: PROVIDER
+        value: api
+      - key: GEMMA_API_MODEL
+        value: gemma-3-27b-it
+      - key: SYSTEM_PROMPT
+        value: তুমি একজন বন্ধুসুলভ সহকারী। ব্যবহারকারী যে ভাষায় লেখে সেই ভাষাতেই উত্তর দাও।
+      - key: GOOGLE_API_KEY
+        sync: false
